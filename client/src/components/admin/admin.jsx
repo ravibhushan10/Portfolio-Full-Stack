@@ -5,7 +5,7 @@ import "./admin.css";
 
 const AdminDashboard = () => {
   const API_BASE_URL = import.meta.env.VITE_API_URL;
-  const ADMIN_PASSWORD = import.meta.env.VITE_PASS;
+  const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
   console.log(ADMIN_PASSWORD);
 
   // ==================== STATE ====================
