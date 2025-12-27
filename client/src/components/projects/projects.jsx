@@ -4,7 +4,7 @@ import "./projects.css";
 
 const Projects = () => {
   const PROJECTS_PER_LOAD = 3;
-  const API_BASE_URL = import.meta.env.VITE_API_URL; 
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
 
   // ==================== STATE ====================
   const [visibleCount, setVisibleCount] = useState(PROJECTS_PER_LOAD);
@@ -161,6 +161,7 @@ if (error) {
                       </span>
                     ))}
                   </div>
+                  <button class="featured-view-btn">View Details</button>
                 </div>
               </div>
             ))}

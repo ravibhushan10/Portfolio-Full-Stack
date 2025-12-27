@@ -40,7 +40,7 @@
 /* ==================== FEATURED CARD ==================== */
 
 .featured-card {
-  background: rgba(17, 24, 39, 0.5);
+  background: rgba(23, 29, 41, 0.5);
   border: 1px solid rgba(59, 130, 246, 0.5);
   border-radius: 1rem;
   padding: 1rem;
@@ -66,7 +66,7 @@
 }
 
 .featured-card:hover {
-  transform: scale(1.04);
+  transform: scale(1.03);
   z-index: 2;
 }
 
@@ -208,6 +208,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
+  margin-bottom: 1rem;
 }
 
 .featured-tag {
@@ -217,6 +218,28 @@
   color: #22d3ee;
   font-size: 0.7rem;
   border-radius: 0.4rem;
+}
+
+/* ==================== VIEW DETAILS BUTTON ==================== */
+
+.featured-view-btn {
+  width: 100%;
+  padding: 0.75rem 1rem;
+background: linear-gradient(135deg, #6488bb, #161e36);
+color: #FFFFFF;
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.featured-view-btn:hover {
+  background: linear-gradient(135deg, #1F2937, #020617);
+color: #FFFFFF;
+  border-color: rgba(59, 130, 246, 0.8);
+  color: #60a5fa;
 }
 
 /* ==================== CTA BUTTON ==================== */
@@ -285,8 +308,6 @@
   height: 40px;
   border-radius: 50%;
   animation: spin 1.5s linear infinite;
-  border: 3px solid rgba(59, 130, 246, 0.2);
-  border-top-color: #3b82f6;
 }
 
 @keyframes spin {
