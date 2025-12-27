@@ -1,15 +1,6 @@
 import { useState } from "react";
-import {
-  FaPaperPlane,
-  FaEnvelope,
-  FaPhone,
-  FaMapMarkerAlt,
-  FaUser,
-  FaTag,
-  FaCheckCircle,
-  FaExclamationCircle,
-  FaTimes,
-} from "react-icons/fa";
+import { FaPaperPlane,FaEnvelope,FaPhone,FaMapMarkerAlt,FaUser,FaTag,FaCheckCircle,FaExclamationCircle,FaTimes,}
+from "react-icons/fa";
 import "./contact.css";
 
 const Contact = () => {
