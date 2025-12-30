@@ -3,13 +3,57 @@
 A modern, full-stack personal portfolio website with admin dashboard for dynamic content management. Built with the MERN stack, featuring AWS S3 integration for media storage and CloudFront for optimized content delivery.
 
 ## 📸 Screenshots
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="screenshots/front.png" ><br/>
+      <em>Home Page</em>
+    </td>
+    <td align="center">
+      <img src="screenshots/first.png" ><br/>
+      <em>Projects section</em>
+    </td>
+  </tr>
 
-  <img src="screenshots/home.png" alt="Home Page" width="80%">
-  <img src="screenshots/about.png" alt="About Section" width="50%">
-  <img src="screenshots/projects.png" alt="Projects Section" width="50%">
-  <img src="screenshots/admin-login.png" alt="Admin Login" width="80%">
-  <img src="screenshots/admin-dashboard.png" alt="Admin Dashboard" width="80%">
-  <img src="screenshots/project-management.png" alt="Project Management" width="80%">
+  <tr>
+    <td align="center">
+      <img src="screenshots/second.png" ><br/>
+      <em>View details section</em>
+    </td>
+    <td align="center">
+      <img src="screenshots/third.png"><br/>
+      <em>View details section</em>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <img src="screenshots/fourth.png" ><br/>
+      <em>Skills section</em>
+    </td>
+     <td align="center">
+      <img src="screenshots/fifth.png" ><br/>
+      <em>Contact section</em>
+    </td>
+  </tr>
+   <tr>
+    <td align="center">
+      <img src="screenshots/sixth.png" ><br/>
+      <em>Admin login</em>
+    </td>
+     <td align="center">
+      <img src="screenshots/seventh.png" ><br/>
+      <em>Admin dashboard</em>
+    </td>
+  </tr>
+   <tr>
+    <td align="center">
+      <img src="screenshots/eight.png" ><br/>
+      <em>Admin dashboard</em>
+    </td>
+  </tr>
+</table>
+
 
 ## [Live Demo](https://ravibhushan-portfolio.vercel.app)
 
@@ -264,3 +308,4 @@ A modern, full-stack personal portfolio website with admin dashboard for dynamic
 </div>
 
 ---
+
