@@ -38,11 +38,11 @@
 }
 
 .hero__badge-dot {
-  width: 11px;
-  height: 11px;
-  background: #05e399;
+  width: 10px;
+  height: 10px;
+  background: #00ff15;
   border-radius: 50%;
-  animation: pulse 2s infinite;
+  animation: pulse 1.5s infinite;
 }
 
 .hero__intro {

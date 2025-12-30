@@ -1,11 +1,22 @@
 import { useState, useEffect } from "react";
-import { FaReact, FaNodeJs, FaPython, FaAws, FaDatabase, FaGithub, FaDocker } from "react-icons/fa";
+import { FaReact, FaNodeJs, FaPython, FaAws, FaDatabase, FaGithub, FaDocker, FaGit, FaLinux } from "react-icons/fa";
 import {
   SiJavascript,
   SiTypescript,
-  SiNextdotjs,
   SiMongodb,
-  SiPostgresql,
+  SiTailwindcss,
+  SiRedux,
+  SiHtml5,
+  SiCss3,
+  SiMysql,
+  SiExpress,
+  SiVisualstudiocode,
+  SiPostman,
+  SiC,
+  SiPython,
+  SiSqlite,
+  SiCplusplus,
+  SiRedis,
 } from "react-icons/si";
 import "./skills.css";
 
@@ -49,36 +60,41 @@ export default function Skills() {
   const skillsData = {
     frontend: [
       { name: "React", icon: <FaReact />, category: "frontend" },
-      { name: "JavaScript", icon: <SiJavascript />, category: "frontend" },
       { name: "TypeScript", icon: <SiTypescript />, category: "frontend" },
-      { name: "Next.js", icon: <SiNextdotjs />, category: "frontend" },
+      { name: "Tailwind CSS", icon: <SiTailwindcss />, category: "frontend" },
+      { name: "Redux", icon: <SiRedux />, category: "frontend" },
+      { name: "CSS3", icon: <SiCss3 />, category: "frontend" },
+      { name: "HTML5", icon: <SiHtml5 />, category: "frontend" },
     ],
     backend: [
       { name: "Node.js", icon: <FaNodeJs />, category: "backend" },
-      { name: "Python", icon: <FaPython />, category: "backend" },
+      { name: "Express", icon: <SiExpress />, category: "backend" },
       { name: "MongoDB", icon: <SiMongodb />, category: "backend" },
-      { name: "PostgreSQL", icon: <SiPostgresql />, category: "backend" },
+      { name: "MySQL", icon: <SiMysql />, category: "backend" },
+      { name: "Redis", icon: <SiRedis />, category: "backend" },
     ],
     tools: [
       { name: "AWS", icon: <FaAws />, category: "tools" },
       { name: "Docker", icon: <FaDocker />, category: "tools" },
-      { name: "Database Design", icon: <FaDatabase />, category: "tools" },
+      { name: "Git", icon: <FaGit />, category: "tools" },
       { name: "GitHub", icon: <FaGithub />, category: "tools" },
+      { name: "Postman", icon: <SiPostman />, category: "tools" },
+      { name: "Vs Code", icon: <SiVisualstudiocode/>, category: "tools" },
+      { name: "Linux(terminal)", icon: <FaLinux />, category: "tools" },
+    ],
+    programming: [
+      { name: "C", icon: <SiC />, category: "programming" },
+      { name: "C++", icon: < SiCplusplus />, category: "programming" },
+      { name: "JavaScript", icon: <SiJavascript />, category: "programming" },
+      { name: "Python", icon: <SiPython />, category: "programming" },
+      { name: "SQL", icon: <SiSqlite/>, category: "programming" },
     ],
   };
 
-  const otherSkills = [
-    "Git",
-    "REST APIs",
-    "GraphQL",
-    "Jest",
-    "CI/CD",
-    "Agile/Scrum",
-    "UI/UX Design",
-    "System Design",
-  ];
+
 
   const allSkills = [
+    ...skillsData.programming,
     ...skillsData.frontend,
     ...skillsData.backend,
     ...skillsData.tools,
@@ -86,6 +102,7 @@ export default function Skills() {
 
   const filters = [
     { id: "all", label: "All Skills" },
+    { id: "programming", label: "Programming Language" },
     { id: "frontend", label: "Frontend" },
     { id: "backend", label: "Backend" },
     { id: "tools", label: "Tools & DevOps" },
@@ -132,17 +149,6 @@ export default function Skills() {
           ))}
         </div>
 
-        {/* Other Skills */}
-        <div className="other-skills">
-          <h3 className="other-skills-title">Other Expertise</h3>
-          <div className="other-skills-list">
-            {otherSkills.map((skill) => (
-              <span key={skill} className="other-skill-item">
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );
