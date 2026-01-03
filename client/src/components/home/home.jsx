@@ -5,12 +5,12 @@ import {
   FaGithub,
   FaLinkedin,
 } from "react-icons/fa";
-import { SiLeetcode, SiX } from "react-icons/si";
+import { SiLeetcode, SiX,SiWhatsapp } from "react-icons/si";
 import "./home.css";
 
 const Hero = () => {
   const handleDownloadCV = () => {
-     window.open('https://d1jd6j7xdf8x95.cloudfront.net/images/Ravibhushan_CV.pdf', '_blank');
+     window.open('https://drive.google.com/drive/folders/1OSFRmCs_YnqQbGBi-nqJ5xlt5izLaAzt', '_blank');
   };
 
   return (
@@ -59,7 +59,7 @@ const Hero = () => {
                 aria-label="Download CV"
               >
                 <FaDownload className="hero__btn-icon" />
-                Download CV
+                Resume here !
               </button>
 
               <a
@@ -73,7 +73,7 @@ const Hero = () => {
             </div>
 
             <div className="hero__social">
-              <span className="hero__social-label">Follow me</span>
+              <span className="hero__social-label">Connect with me</span>
 
               <div className="hero__social-icons">
                 <a
@@ -114,6 +114,15 @@ const Hero = () => {
                   aria-label="X (Twitter) Profile"
                 >
                   <SiX />
+                </a>
+                <a
+                  href="https://wa.me/919199519751?text=Hi%20Ravi!%20I%20saw%20your%20portfolio%20and%20would%20love%20to%20connect"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hero__social-link whatsapp"
+  aria-label="WhatsApp Chat"
+                >
+                  <SiWhatsapp />
                 </a>
               </div>
             </div>

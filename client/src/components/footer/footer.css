@@ -131,6 +131,8 @@
   color: #e5e7eb;
 }
 
+
+
 .footer__social {
   display: flex;
   flex-direction: column;
@@ -139,14 +141,13 @@
 
 .social__icons {
   display: flex;
-  gap: 14px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .social__link {
-  position: relative;
-  width: 44px;
-  height: 44px;
+ width: 40px;
+  height: 40px;
   font-size: 1.5rem;
   display: flex;
   align-items: center;
@@ -154,50 +155,40 @@
   background: transparent;
   border: 2px solid #444;
   border-radius: 12px;
-  overflow: hidden;
-  z-index: 1;
+  transition: all 0.3s ease;
 }
 
 .social__link:hover {
-  transform: translateY(-3px);
-  color: #fff;
-  border-color: rgba(99, 102, 241, 0.3);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.2);
+  transform: scale(1.08);
 }
 
-.social__link.github {
-  color: #ffffff;
-  border-color: #999;
-  transition: transform 0.3s ease-out;
+.social__link.instagram {
+  color: #e6086f;
+  border-color: #d50868;
 }
 
 .social__link.linkedin {
-  color: #0077B5;
+color: #0077B5;
   border-color: #0077B5;
-  transition: transform 0.3s ease-out;
 }
 
 .social__link.twitter {
   color: #ffffff;
-  border-color: #999;
-  transition: transform 0.3s ease-out;
+  border-color: #ffffff;
 }
 
-.social__link.github:hover,
-.social__link.twitter:hover {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 2px solid #ffffff;
-  color: #f1f5f9;
-  transform: scale(1.08);
+.social__link.instagram:hover{
+  background: linear-gradient(45deg, #833AB4, #FD1D1D, #FCAF45);
+  color: #ffffff;
 }
 
 .social__link.linkedin:hover {
-  background: #0077B5;
-  backdrop-filter: blur(10px);
-  border: 2px solid #ffffff;
-  color: #f1f5f9;
-  transform: scale(1.08);
+ background: #0077B5;
+  color: #ffffff;
+}
+.social__link.twitter:hover {
+ background: #ffffff;
+  color: #000000;
 }
 
 .social__text {

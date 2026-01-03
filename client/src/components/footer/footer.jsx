@@ -3,6 +3,7 @@ import {
   FaLinkedin,
   FaEnvelope,
   FaPhone,
+  FaInstagram,
 } from "react-icons/fa";
 import "./footer.css";
 import { SiX } from "react-icons/si";
@@ -21,12 +22,12 @@ const Footer = () => {
                 <div className="footer__social">
                   <div className="social__icons">
                     <a
-                      href="https://github.com/ravibhushan10"
+                      href="https://www.instagram.com/ravi_maurya.2/?hl=en"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="social__link github"
+                      className="social__link instagram"
                     >
-                      <FaGithub />
+                      <FaInstagram />
                     </a>
                     <a
                       href="https://www.linkedin.com/in/ravibhushan-kumar/"
@@ -57,7 +58,7 @@ const Footer = () => {
                   <li>
                     <a href="#home" className="footer__link">Home</a>
                   </li>
-                  
+
                   <li>
                     <a href="#projects" className="footer__link">Projects</a>
                   </li>
