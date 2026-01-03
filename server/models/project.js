@@ -57,14 +57,13 @@ const projectSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please add live demo URL']
     },
-    // ADD THIS FIELD
     order: {
       type: Number,
-      default: 999, // Default high number so new projects appear at end
+      default: 999,
       required: true
     }
   },
-  // { timestamps: true }
+  { timestamps: true }
 );
 projectSchema.index({ order: 1 });
 

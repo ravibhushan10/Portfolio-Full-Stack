@@ -13,8 +13,7 @@ import "./App.css";
 function App() {
   useEffect(() => {
     const updateHeaderHeight = () => {
-      const headerHeight =
-        document.querySelector(".header")?.clientHeight || 0;
+      const headerHeight = document.querySelector(".header")?.clientHeight || 0;
       const navbarHeight =
         document.querySelector(".navbar")?.clientHeight || 70;
 
@@ -83,11 +82,9 @@ function App() {
             scrollPosition >= offsetTop &&
             scrollPosition < offsetTop + offsetHeight
           ) {
-            document
-              .querySelectorAll(".navbar__link")
-              .forEach((link) => {
-                link.classList.remove("active");
-              });
+            document.querySelectorAll(".navbar__link").forEach((link) => {
+              link.classList.remove("active");
+            });
 
             const activeLink = document.querySelector(
               `.navbar__link[data-section="${section}"]`

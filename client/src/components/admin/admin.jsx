@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Trash2, Plus, LogOut, Eye, EyeOff, Edit2, LayoutDashboard, Loader } from "lucide-react";
+import {
+  Trash2,
+  Plus,
+  LogOut,
+  Eye,
+  EyeOff,
+  Edit2,
+  LayoutDashboard,
+  Loader,
+} from "lucide-react";
 import "./admin.css";
 
 const AdminDashboard = () => {
   const API_BASE_URL = import.meta.env.VITE_API_URL;
   const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
 
-  // ==================== STATE ====================
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -32,23 +40,20 @@ const AdminDashboard = () => {
     github: "",
     documentation: "",
     live: "",
-    order: 999
+    order: 999,
   });
 
-  // ==================== HELPER FUNCTION ====================
   const showMessage = (type, text) => {
     setMessage({ type, text });
     setTimeout(() => setMessage({ type: "", text: "" }), 3000);
   };
 
-  // ==================== FETCH PROJECTS ON MOUNT ====================
   useEffect(() => {
     if (isAuthenticated) {
       fetchProjects();
     }
   }, [isAuthenticated]);
 
-  // ==================== LOGIN ====================
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -57,13 +62,12 @@ const AdminDashboard = () => {
       setPassword("");
       setError("");
     } else {
-      setError("❌ Incorrect password. Please try again.");
+      setError("Incorrect password. Please try again.");
       setPassword("");
       setTimeout(() => setError(""), 3000);
     }
   };
 
-  // ==================== FETCH PROJECTS (LIST VIEW - OPTIMIZED) ====================
   const fetchProjects = async () => {
     try {
       setLoading(true);
@@ -72,13 +76,12 @@ const AdminDashboard = () => {
       const data = await response.json();
       setProjects(data);
     } catch (error) {
-      showMessage("error", `❌ Error: ${error.message}`);
+      showMessage("error", `Error: ${error.message}`);
     } finally {
       setLoading(false);
     }
   };
 
-  // ==================== FETCH FULL PROJECT FOR EDITING ====================
   const fetchFullProject = async (projectId) => {
     try {
       setLoadingFullProject(true);
@@ -87,42 +90,40 @@ const AdminDashboard = () => {
       const fullProject = await response.json();
       return fullProject;
     } catch (error) {
-      showMessage("error", `❌ Error: ${error.message}`);
+      showMessage("error", `Error: ${error.message}`);
       return null;
     } finally {
       setLoadingFullProject(false);
     }
   };
 
-  // ==================== FORM HANDLERS ====================
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleArrayChange = (field, index, value) => {
     const newArray = [...formData[field]];
     newArray[index] = value;
-    setFormData(prev => ({ ...prev, [field]: newArray }));
+    setFormData((prev) => ({ ...prev, [field]: newArray }));
   };
 
   const addArrayField = (field) => {
-    setFormData(prev => ({ ...prev, [field]: [...prev[field], ""] }));
+    setFormData((prev) => ({ ...prev, [field]: [...prev[field], ""] }));
   };
 
   const removeArrayField = (field, index) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: prev[field].filter((_, i) => i !== index)
+      [field]: prev[field].filter((_, i) => i !== index),
     }));
   };
 
-  // ==================== ADD PROJECT ====================
   const handleAddProject = async (e) => {
     e.preventDefault();
 
     if (!formData.title || !formData.description || !formData.fullDescription) {
-      showMessage("error", "❌ Please fill all required fields!");
+      showMessage("error", "Please fill all required fields!");
       return;
     }
 
@@ -134,29 +135,28 @@ const AdminDashboard = () => {
         body: JSON.stringify({
           ...formData,
           order: parseInt(formData.order) || 999,
-          images: formData.images.filter(img => img),
-          tags: formData.tags.filter(tag => tag),
-          features: formData.features.filter(f => f),
-          techStack: formData.techStack.filter(t => t),
-          keyLearnings: formData.keyLearnings.filter(k => k),
-          futureImprovements: formData.futureImprovements.filter(f => f)
-        })
+          images: formData.images.filter((img) => img),
+          tags: formData.tags.filter((tag) => tag),
+          features: formData.features.filter((f) => f),
+          techStack: formData.techStack.filter((t) => t),
+          keyLearnings: formData.keyLearnings.filter((k) => k),
+          futureImprovements: formData.futureImprovements.filter((f) => f),
+        }),
       });
 
       if (!response.ok) throw new Error("Failed to add project");
 
-      showMessage("success", "✅ Project added successfully!");
+      showMessage("success", "Project added successfully!");
       resetForm();
       setActiveTab("list");
       fetchProjects();
     } catch (error) {
-      showMessage("error", `❌ Error: ${error.message}`);
+      showMessage("error", `Error: ${error.message}`);
     } finally {
       setLoading(false);
     }
   };
 
-  // ==================== UPDATE PROJECT ====================
   const handleUpdateProject = async (e) => {
     e.preventDefault();
 
@@ -164,60 +164,64 @@ const AdminDashboard = () => {
 
     try {
       setLoading(true);
-      const response = await fetch(`${API_BASE_URL}/projects/${editingProject._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          order: parseInt(formData.order) || 999,
-          images: formData.images.filter(img => img),
-          tags: formData.tags.filter(tag => tag),
-          features: formData.features.filter(f => f),
-          techStack: formData.techStack.filter(t => t),
-          keyLearnings: formData.keyLearnings.filter(k => k),
-          futureImprovements: formData.futureImprovements.filter(f => f)
-        })
-      });
+      const response = await fetch(
+        `${API_BASE_URL}/projects/${editingProject._id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...formData,
+            order: parseInt(formData.order) || 999,
+            images: formData.images.filter((img) => img),
+            tags: formData.tags.filter((tag) => tag),
+            features: formData.features.filter((f) => f),
+            techStack: formData.techStack.filter((t) => t),
+            keyLearnings: formData.keyLearnings.filter((k) => k),
+            futureImprovements: formData.futureImprovements.filter((f) => f),
+          }),
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to update project");
 
-      showMessage("success", "✅ Project updated successfully!");
+      showMessage("success", "Project updated successfully!");
       resetForm();
       setEditingProject(null);
       setActiveTab("list");
       fetchProjects();
     } catch (error) {
-      showMessage("error", `❌ Error: ${error.message}`);
+      showMessage("error", `Error: ${error.message}`);
     } finally {
       setLoading(false);
     }
   };
 
-  // ==================== DELETE PROJECT ====================
   const handleDeleteProject = async (id, title) => {
     if (window.confirm(`Are you sure you want to delete "${title}"?`)) {
       try {
         setLoading(true);
         const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
-          method: "DELETE"
+          method: "DELETE",
         });
 
         if (!response.ok) throw new Error("Failed to delete project");
 
-        showMessage("success", "✅ Project deleted successfully!");
+        showMessage("success", "Project deleted successfully!");
         fetchProjects();
       } catch (error) {
-        showMessage("error", `❌ Error: ${error.message}`);
+        showMessage("error", ` Error: ${error.message}`);
       } finally {
         setLoading(false);
       }
     }
   };
 
-  // ==================== EDIT PROJECT (OPTIMIZED - FETCH FULL DATA) ====================
   const handleEditProject = async (project) => {
-    // If project already has full data, use it
-    if (project.fullDescription && project.features && project.features.length > 0) {
+    if (
+      project.fullDescription &&
+      project.features &&
+      project.features.length > 0
+    ) {
       setEditingProject(project);
       setFormData({
         title: project.title,
@@ -233,11 +237,10 @@ const AdminDashboard = () => {
         github: project.github,
         documentation: project.documentation,
         live: project.live,
-        order: project.order || 999
+        order: project.order || 999,
       });
       setActiveTab("edit");
     } else {
-      // Fetch full project data
       const fullProject = await fetchFullProject(project._id);
       if (fullProject) {
         setEditingProject(fullProject);
@@ -255,7 +258,7 @@ const AdminDashboard = () => {
           github: fullProject.github,
           documentation: fullProject.documentation,
           live: fullProject.live,
-          order: fullProject.order || 999
+          order: fullProject.order || 999,
         });
         setActiveTab("edit");
       }
@@ -277,7 +280,7 @@ const AdminDashboard = () => {
       github: "",
       documentation: "",
       live: "",
-      order: 999
+      order: 999,
     });
     setEditingProject(null);
   };
@@ -289,13 +292,14 @@ const AdminDashboard = () => {
     resetForm();
   };
 
-  // ==================== LOGIN PAGE ====================
   if (!isAuthenticated) {
     return (
       <div className="admin-login-container">
         <div className="admin-login-box">
-          <h1 className="admin-login-title">🔐 Admin Access</h1>
-          <p className="admin-login-subtitle">Enter password to manage projects</p>
+          <h1 className="admin-login-title">Admin Access</h1>
+          <p className="admin-login-subtitle">
+            Enter password to manage projects
+          </p>
           {error && <p className="admin-error-text">{error}</p>}
 
           <form onSubmit={handleLogin} className="admin-form">
@@ -328,50 +332,55 @@ const AdminDashboard = () => {
     );
   }
 
-  // ==================== DASHBOARD ====================
   return (
     <div className="admin-dashboard-container">
-      {/* Header */}
       <header className="admin-header">
-        <h1 className="admin-header-title"><LayoutDashboard /> Admin Dashboard</h1>
+        <h1 className="admin-header-title">
+          <LayoutDashboard /> Admin Dashboard
+        </h1>
         <button onClick={handleLogout} className="admin-logout-btn">
           <LogOut size={18} /> Logout
         </button>
       </header>
 
-      {/* Message */}
       {message.text && (
         <div className={`admin-message admin-message-${message.type}`}>
           {message.text}
         </div>
       )}
 
-      {/* Loading Full Project Indicator */}
       {loadingFullProject && (
         <div className="admin-message admin-message-info">
           <Loader size={18} className="spinning" /> Loading project details...
         </div>
       )}
 
-      {/* Tabs */}
       <div className="admin-tabs">
         <button
-          onClick={() => { setActiveTab("list"); resetForm(); }}
-          className={`admin-tab ${activeTab === "list" ? "admin-tab-active" : ""}`}
+          onClick={() => {
+            setActiveTab("list");
+            resetForm();
+          }}
+          className={`admin-tab ${
+            activeTab === "list" ? "admin-tab-active" : ""
+          }`}
         >
           📋 Projects List
         </button>
         <button
-          onClick={() => { setActiveTab("add"); resetForm(); }}
-          className={`admin-tab ${activeTab === "add" ? "admin-tab-active" : ""}`}
+          onClick={() => {
+            setActiveTab("add");
+            resetForm();
+          }}
+          className={`admin-tab ${
+            activeTab === "add" ? "admin-tab-active" : ""
+          }`}
         >
           <Plus size={18} /> Add Project
         </button>
       </div>
 
-      {/* Content */}
       <div className="admin-content">
-        {/* LIST TAB */}
         {activeTab === "list" && (
           <div className="admin-tab-content">
             <h2 className="admin-tab-title">All Projects</h2>
@@ -382,21 +391,25 @@ const AdminDashboard = () => {
               <p className="admin-no-data-text">No projects found</p>
             ) : (
               <div className="admin-projects-list">
-                {projects.map(project => (
+                {projects.map((project) => (
                   <div key={project._id} className="admin-project-card">
                     <div className="admin-project-info">
                       <h3 className="admin-project-title">
                         {project.title}
-                        <span style={{
-                          marginLeft: '10px',
-                          fontSize: '0.9rem',
-                          color: '#666',
-                          fontWeight: 'normal'
-                        }}>
+                        <span
+                          style={{
+                            marginLeft: "10px",
+                            fontSize: "0.9rem",
+                            color: "#666",
+                            fontWeight: "normal",
+                          }}
+                        >
                           (Order: {project.order || 999})
                         </span>
                       </h3>
-                      <p className="admin-project-desc">{project.description}</p>
+                      <p className="admin-project-desc">
+                        {project.description}
+                      </p>
                     </div>
                     <div className="admin-project-actions">
                       <button
@@ -404,11 +417,17 @@ const AdminDashboard = () => {
                         className="admin-edit-btn"
                         disabled={loadingFullProject}
                       >
-                        {loadingFullProject ? <Loader size={18} className="spinning" /> : <Edit2 size={18} />}
+                        {loadingFullProject ? (
+                          <Loader size={18} className="spinning" />
+                        ) : (
+                          <Edit2 size={18} />
+                        )}
                         {loadingFullProject ? " Loading..." : " Edit"}
                       </button>
                       <button
-                        onClick={() => handleDeleteProject(project._id, project.title)}
+                        onClick={() =>
+                          handleDeleteProject(project._id, project.title)
+                        }
                         className="admin-delete-btn"
                         disabled={loadingFullProject}
                       >
@@ -422,15 +441,18 @@ const AdminDashboard = () => {
           </div>
         )}
 
-        {/* ADD/EDIT TAB */}
         {(activeTab === "add" || activeTab === "edit") && (
           <div className="admin-tab-content">
             <h2 className="admin-tab-title">
               {activeTab === "add" ? "Add New Project" : "Edit Project"}
             </h2>
 
-            <form onSubmit={activeTab === "add" ? handleAddProject : handleUpdateProject} className="admin-form">
-              {/* Basic Info */}
+            <form
+              onSubmit={
+                activeTab === "add" ? handleAddProject : handleUpdateProject
+              }
+              className="admin-form"
+            >
               <div className="admin-section">
                 <h3 className="admin-section-title">Basic Information</h3>
 
@@ -486,7 +508,6 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              {/* Images */}
               <div className="admin-section">
                 <h3 className="admin-section-title">Project Images</h3>
                 {formData.images.map((image, index) => (
@@ -494,7 +515,9 @@ const AdminDashboard = () => {
                     <input
                       type="url"
                       value={image}
-                      onChange={(e) => handleArrayChange("images", index, e.target.value)}
+                      onChange={(e) =>
+                        handleArrayChange("images", index, e.target.value)
+                      }
                       placeholder="Image URL"
                       className="admin-input"
                     />
@@ -518,7 +541,6 @@ const AdminDashboard = () => {
                 </button>
               </div>
 
-              {/* Tags */}
               <div className="admin-section">
                 <h3 className="admin-section-title">Tags</h3>
                 {formData.tags.map((tag, index) => (
@@ -526,7 +548,9 @@ const AdminDashboard = () => {
                     <input
                       type="text"
                       value={tag}
-                      onChange={(e) => handleArrayChange("tags", index, e.target.value)}
+                      onChange={(e) =>
+                        handleArrayChange("tags", index, e.target.value)
+                      }
                       placeholder="e.g., React"
                       className="admin-input"
                     />
@@ -550,7 +574,6 @@ const AdminDashboard = () => {
                 </button>
               </div>
 
-              {/* Features */}
               <div className="admin-section">
                 <h3 className="admin-section-title">Features</h3>
                 {formData.features.map((feature, index) => (
@@ -558,7 +581,9 @@ const AdminDashboard = () => {
                     <input
                       type="text"
                       value={feature}
-                      onChange={(e) => handleArrayChange("features", index, e.target.value)}
+                      onChange={(e) =>
+                        handleArrayChange("features", index, e.target.value)
+                      }
                       placeholder="Feature description"
                       className="admin-input"
                     />
@@ -582,7 +607,6 @@ const AdminDashboard = () => {
                 </button>
               </div>
 
-              {/* Tech Stack */}
               <div className="admin-section">
                 <h3 className="admin-section-title">Tech Stack</h3>
                 {formData.techStack.map((tech, index) => (
@@ -590,7 +614,9 @@ const AdminDashboard = () => {
                     <input
                       type="text"
                       value={tech}
-                      onChange={(e) => handleArrayChange("techStack", index, e.target.value)}
+                      onChange={(e) =>
+                        handleArrayChange("techStack", index, e.target.value)
+                      }
                       placeholder="e.g., React.js"
                       className="admin-input"
                     />
@@ -614,7 +640,6 @@ const AdminDashboard = () => {
                 </button>
               </div>
 
-              {/* Key Learnings */}
               <div className="admin-section">
                 <h3 className="admin-section-title">Key Learnings</h3>
                 {formData.keyLearnings.map((learning, index) => (
@@ -622,7 +647,9 @@ const AdminDashboard = () => {
                     <input
                       type="text"
                       value={learning}
-                      onChange={(e) => handleArrayChange("keyLearnings", index, e.target.value)}
+                      onChange={(e) =>
+                        handleArrayChange("keyLearnings", index, e.target.value)
+                      }
                       placeholder="Learning description"
                       className="admin-input"
                     />
@@ -646,7 +673,6 @@ const AdminDashboard = () => {
                 </button>
               </div>
 
-              {/* Future Improvements */}
               <div className="admin-section">
                 <h3 className="admin-section-title">Future Improvements</h3>
                 {formData.futureImprovements.map((improvement, index) => (
@@ -654,14 +680,22 @@ const AdminDashboard = () => {
                     <input
                       type="text"
                       value={improvement}
-                      onChange={(e) => handleArrayChange("futureImprovements", index, e.target.value)}
+                      onChange={(e) =>
+                        handleArrayChange(
+                          "futureImprovements",
+                          index,
+                          e.target.value
+                        )
+                      }
                       placeholder="Improvement description"
                       className="admin-input"
                     />
                     {formData.futureImprovements.length > 1 && (
                       <button
                         type="button"
-                        onClick={() => removeArrayField("futureImprovements", index)}
+                        onClick={() =>
+                          removeArrayField("futureImprovements", index)
+                        }
                         className="admin-remove-btn"
                       >
                         ✕
@@ -678,7 +712,6 @@ const AdminDashboard = () => {
                 </button>
               </div>
 
-              {/* Links */}
               <div className="admin-section">
                 <h3 className="admin-section-title">Project Links</h3>
 
@@ -722,7 +755,6 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              {/* ORDER SECTION */}
               <div className="admin-section">
                 <h3 className="admin-section-title">Display Order</h3>
 
@@ -738,19 +770,30 @@ const AdminDashboard = () => {
                     min="1"
                     required
                   />
-                  <p style={{
-                    fontSize: '0.85rem',
-                    color: '#666',
-                    marginTop: '8px',
-                    fontStyle: 'italic'
-                  }}>
-                    Lower numbers appear first (1, 2, 3...). Default is 999 (appears last).
+                  <p
+                    style={{
+                      fontSize: "0.85rem",
+                      color: "#666",
+                      marginTop: "8px",
+                      fontStyle: "italic",
+                    }}
+                  >
+                    Lower numbers appear first (1, 2, 3...). Default is 999
+                    (appears last).
                   </p>
                 </div>
               </div>
 
-              <button type="submit" className="admin-submit-btn" disabled={loading}>
-                {loading ? "Processing..." : (activeTab === "add" ? "Add Project" : "Update Project")}
+              <button
+                type="submit"
+                className="admin-submit-btn"
+                disabled={loading}
+              >
+                {loading
+                  ? "Processing..."
+                  : activeTab === "add"
+                  ? "Add Project"
+                  : "Update Project"}
               </button>
             </form>
           </div>

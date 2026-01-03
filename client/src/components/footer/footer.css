@@ -146,7 +146,7 @@
 }
 
 .social__link {
- width: 40px;
+  width: 40px;
   height: 40px;
   font-size: 1.5rem;
   display: flex;
@@ -168,7 +168,7 @@
 }
 
 .social__link.linkedin {
-color: #0077B5;
+  color: #0077B5;
   border-color: #0077B5;
 }
 
@@ -177,17 +177,18 @@ color: #0077B5;
   border-color: #ffffff;
 }
 
-.social__link.instagram:hover{
+.social__link.instagram:hover {
   background: linear-gradient(45deg, #833AB4, #FD1D1D, #FCAF45);
   color: #ffffff;
 }
 
 .social__link.linkedin:hover {
- background: #0077B5;
+  background: #0077B5;
   color: #ffffff;
 }
+
 .social__link.twitter:hover {
- background: #ffffff;
+  background: #ffffff;
   color: #000000;
 }
 
@@ -213,13 +214,11 @@ color: #0077B5;
 
 .footer__divider {
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 20%,
-    rgba(255, 255, 255, 0.1) 80%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 20%,
+      rgba(255, 255, 255, 0.1) 80%,
+      transparent 100%);
   margin: -1rem 1rem 0;
   border: 1px solid #ffffff0f;
 }

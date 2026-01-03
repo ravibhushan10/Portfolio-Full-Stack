@@ -4,7 +4,6 @@
   overflow: hidden;
 }
 
-
 .about__bg--left {
   top: 50%;
   left: -120px;
@@ -16,7 +15,6 @@
   right: -120px;
 }
 
-/* Container */
 .about__container {
   max-width: 1200px;
   margin: 0 auto;
@@ -24,7 +22,6 @@
   z-index: 1;
 }
 
-/* Header */
 .about__header {
   text-align: center;
   margin-bottom: 5rem;
@@ -44,8 +41,6 @@
   margin-top: 0.5rem;
 }
 
-
-
 .about__divider {
   width: 90px;
   height: 4px;
@@ -54,14 +49,12 @@
   border-radius: 10px;
 }
 
-
 .about__main {
- display: grid;
+  display: grid;
   grid-template-columns: auto 1fr;
   gap: 3rem;
   align-items: center;
 }
-
 
 .about__image {
   position: relative;
@@ -70,7 +63,7 @@
 }
 
 .about__image-box {
- width: 100%;
+  width: 100%;
   max-width: 360px;
 
   overflow: hidden;
@@ -78,9 +71,8 @@
 
 }
 
-/* IMAGE FIX (NO BLUR, MORE SHINE) */
 .about__image-box img {
-   width: 100%;
+  width: 100%;
   height: 420px;
   object-fit: cover;
   display: block;
@@ -90,25 +82,20 @@
   transition: transform 0.6s ease;
 }
 
-/* Hover zoom */
 .about__image-box:hover img {
   transform: scale(1.05);
   filter: contrast(1.1) brightness(1.03) saturate(1.03);
 }
 
-/* Overlay */
 .about__image-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(2, 6, 23, 0.45),
-    transparent 60%
-  );
+  background: linear-gradient(to top,
+      rgba(2, 6, 23, 0.45),
+      transparent 60%);
   pointer-events: none;
 }
 
-/* Floating cards */
 .about__float {
   position: absolute;
   background: rgba(32, 35, 43, 0.85);
@@ -138,7 +125,6 @@
   right: -40px;
 }
 
-/* Content */
 .about__content h3 {
   font-size: 2rem;
   color: #f1f5f9;
@@ -155,13 +141,12 @@
   margin-bottom: 1.6rem;
 }
 
-/* CTA */
 .about__cta {
   display: inline-block;
   margin-top: 1.8rem;
 
   padding: 0.95rem 2.2rem;
- background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   font-weight: 600;
   color: white;
   border-radius: 999px;
@@ -171,11 +156,10 @@
 }
 
 .about__cta:hover {
-  transform:  scale(1.05);
+  transform: scale(1.05);
 
 }
 
-/* Stats */
 .about__stats {
   margin-top: 5rem;
   display: grid;
@@ -194,7 +178,7 @@
 }
 
 .about__stat:hover {
-  transform:scale(1.05);
+  transform: scale(1.05);
 }
 
 .about__stat h4 {
@@ -207,9 +191,6 @@
   color: #94a3b8;
 }
 
-
-
-/* ===== Tablet (≤1024px) ===== */
 @media (max-width: 1024px) {
   .about__main {
     grid-template-columns: 1fr;
@@ -243,7 +224,6 @@
   }
 }
 
-/* ===== Mobile (≤640px) ===== */
 @media (max-width: 640px) {
   .about {
     padding: 6rem 1.25rem;
@@ -279,7 +259,6 @@
   }
 }
 
-/* ===== Small Mobile (≤420px) ===== */
 @media (max-width: 420px) {
   .about__image-box {
     max-width: 260px;

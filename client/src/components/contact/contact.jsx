@@ -1,6 +1,15 @@
 import { useState } from "react";
-import { FaPaperPlane,FaEnvelope,FaPhone,FaMapMarkerAlt,FaUser,FaTag,FaCheckCircle,FaExclamationCircle,FaTimes,}
-from "react-icons/fa";
+import {
+  FaPaperPlane,
+  FaEnvelope,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaUser,
+  FaTag,
+  FaCheckCircle,
+  FaExclamationCircle,
+  FaTimes,
+} from "react-icons/fa";
 import "./contact.css";
 
 const Contact = () => {
@@ -34,13 +43,16 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
-
-    if (!formData.fullName || !formData.email || !formData.subject || !formData.message) {
+    if (
+      !formData.fullName ||
+      !formData.email ||
+      !formData.subject ||
+      !formData.message
+    ) {
       showStatusMessage("error", "Please fill all required fields");
       setLoading(false);
       return;
     }
-
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
@@ -50,14 +62,13 @@ const Contact = () => {
     }
 
     try {
-
-      const API_URL =  import.meta.env.VITE_API_URL;
+      const API_URL = import.meta.env.VITE_API_URL;
 
       const res = await fetch(`${API_URL}/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          Accept: "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -72,8 +83,10 @@ const Contact = () => {
         throw new Error(data.message || `Submission failed`);
       }
 
-      showStatusMessage("success", "Message sent successfully! I'll get back to you soon.");
-
+      showStatusMessage(
+        "success",
+        "Message sent successfully! I'll get back to you soon."
+      );
 
       setFormData({
         fullName: "",
@@ -84,7 +97,6 @@ const Contact = () => {
       });
     } catch (err) {
       console.error("Error details:", err);
-
 
       let errorMessage = err.message;
 
@@ -106,7 +118,6 @@ const Contact = () => {
 
   return (
     <>
-      {/* Status Modal Overlay */}
       {showStatus && (
         <div className="status-overlay" onClick={closeStatusModal}>
           <div
@@ -144,14 +155,14 @@ const Contact = () => {
         </div>
       )}
 
-      {/* Contact Section */}
       <section className="contact section-bg" id="contact">
         <div className="section-content">
           <div className="contact__container">
             <div className="contact__header">
               <h2 className="contact__title">Get In Touch</h2>
               <p className="contact__intro">
-                Have questions about my work or want to discuss a project? I’m always open to meaningful collaboration.
+                Have questions about my work or want to discuss a project? I’m
+                always open to meaningful collaboration.
               </p>
             </div>
 
@@ -175,18 +186,13 @@ const Contact = () => {
                   </div>
                 </a>
 
-                <a
-                  href="tel:+919199519751"
-                  className="contact__info-card"
-                >
+                <a href="tel:+919199519751" className="contact__info-card">
                   <div className="contact__info-icon">
                     <FaPhone />
                   </div>
                   <div className="contact__info-content">
                     <h3 className="contact__info-title">Phone</h3>
-                    <p className="contact__info-text">
-                      +91 9199519751
-                    </p>
+                    <p className="contact__info-text">+91 9199519751</p>
                     <p className="contact__info-subtext">
                       Mon-Fri from 9am to 6pm
                     </p>

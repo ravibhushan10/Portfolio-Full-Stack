@@ -1,16 +1,14 @@
 import { TypeAnimation } from "react-type-animation";
-import {
-  FaDownload,
-  FaArrowRight,
-  FaGithub,
-  FaLinkedin,
-} from "react-icons/fa";
-import { SiLeetcode, SiX,SiWhatsapp } from "react-icons/si";
+import { FaDownload, FaArrowRight, FaGithub, FaLinkedin } from "react-icons/fa";
+import { SiLeetcode, SiX, SiWhatsapp } from "react-icons/si";
 import "./home.css";
 
 const Hero = () => {
   const handleDownloadCV = () => {
-     window.open('https://drive.google.com/drive/folders/1OSFRmCs_YnqQbGBi-nqJ5xlt5izLaAzt', '_blank');
+    window.open(
+      "https://drive.google.com/drive/folders/1OSFRmCs_YnqQbGBi-nqJ5xlt5izLaAzt",
+      "_blank"
+    );
   };
 
   return (
@@ -49,7 +47,9 @@ const Hero = () => {
             </div>
 
             <p className="hero__description">
-             I develop web applications with a focus on performance, usability, and maintainable code. I continuously learn and adapt to new tools and technologies.
+              I develop web applications with a focus on performance, usability,
+              and maintainable code. I continuously learn and adapt to new tools
+              and technologies.
             </p>
 
             <div className="hero__buttons">
@@ -117,10 +117,10 @@ const Hero = () => {
                 </a>
                 <a
                   href="https://wa.me/919199519751?text=Hi%20Ravi!%20I%20saw%20your%20portfolio%20and%20would%20love%20to%20connect"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="hero__social-link whatsapp"
-  aria-label="WhatsApp Chat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hero__social-link whatsapp"
+                  aria-label="WhatsApp Chat"
                 >
                   <SiWhatsapp />
                 </a>

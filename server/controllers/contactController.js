@@ -4,14 +4,12 @@ exports.createContact = async (req, res) => {
     try {
         console.log('Received contact form submission:', req.body);
 
-
         if (!req.body.fullName || !req.body.email || !req.body.subject || !req.body.message) {
             return res.status(400).json({
                 success: false,
                 message: 'All required fields must be filled: fullName, email, subject, message'
             });
         }
-
 
         const contact = new Contact({
             fullName: req.body.fullName.trim(),

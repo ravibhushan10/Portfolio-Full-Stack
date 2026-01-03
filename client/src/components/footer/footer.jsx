@@ -56,17 +56,25 @@ const Footer = () => {
                 <h3 className="footer__section-title">Quick Links</h3>
                 <ul className="footer__links">
                   <li>
-                    <a href="#home" className="footer__link">Home</a>
+                    <a href="#home" className="footer__link">
+                      Home
+                    </a>
                   </li>
 
                   <li>
-                    <a href="#projects" className="footer__link">Projects</a>
+                    <a href="#projects" className="footer__link">
+                      Projects
+                    </a>
                   </li>
                   <li>
-                    <a href="#skills" className="footer__link">Skills</a>
+                    <a href="#skills" className="footer__link">
+                      Skills
+                    </a>
                   </li>
                   <li>
-                    <a href="#contact" className="footer__link">Contact</a>
+                    <a href="#contact" className="footer__link">
+                      Contact
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -84,14 +92,9 @@ const Footer = () => {
                     </span>
                   </a>
 
-                  <a
-                    href="tel:+919199519751"
-                    className="contact__item"
-                  >
+                  <a href="tel:+919199519751" className="contact__item">
                     <FaPhone className="contact__icon" />
-                    <span className="contact__text">
-                      +91 9199519751
-                    </span>
+                    <span className="contact__text">+91 9199519751</span>
                   </a>
                 </div>
               </div>

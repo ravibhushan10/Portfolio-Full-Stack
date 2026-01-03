@@ -1,6 +1,5 @@
 import "./about.css";
 
-
 const About = () => {
   const stats = [
     { number: "0+", label: "Years Experience" },
@@ -11,46 +10,37 @@ const About = () => {
 
   return (
     <section id="about" className="about">
-      {/* Background blobs */}
       <div className="about__bg about__bg--left" />
       <div className="about__bg about__bg--right" />
 
       <div className="about__container">
-        {/* Header */}
         <header className="about__header">
-
           <h2 className="about__title">
             Know Me <span>Better</span>
           </h2>
-          <span className="about__subtitle">My background, passion, and approach to development</span>
-
-
+          <span className="about__subtitle">
+            My background, passion, and approach to development
+          </span>
         </header>
 
-        {/* Main */}
         <div className="about__main">
-          {/* Image */}
           <figure className="about__image">
             <div className="about__image-box">
-              <img
-                src={Image}
-                alt="Ravi Bhushan"
-                loading="lazy"
-              />
+              <img src={Image} alt="Ravi Bhushan" loading="lazy" />
               <div className="about__image-overlay" />
             </div>
-
-
           </figure>
 
-          {/* Content */}
           <article className="about__content">
             <h3>
               Full Stack Developer from <span>Bihar, India</span>
             </h3>
 
             <p>
-             I’m a dedicated Full Stack Developer skilled in React.js, Next.js, Node.js, Express, MongoDB, and TailwindCSS. I specialize in building modern, fast, and accessible digital experiences with a focus on UI/UX, performance optimization, and clean architecture.
+              I’m a dedicated Full Stack Developer skilled in React.js, Next.js,
+              Node.js, Express, MongoDB, and TailwindCSS. I specialize in
+              building modern, fast, and accessible digital experiences with a
+              focus on UI/UX, performance optimization, and clean architecture.
             </p>
 
             <p>
@@ -64,7 +54,6 @@ const About = () => {
           </article>
         </div>
 
-        {/* Stats */}
         <section className="about__stats">
           {stats.map((stat) => (
             <div key={stat.label} className="about__stat">

@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Github, ExternalLink, Eye, Loader, Rocket, Lightbulb, Code, CheckCircle, BookOpen, Link } from "lucide-react";
+import {
+  Github,
+  ExternalLink,
+  Eye,
+  Loader,
+  Rocket,
+  Lightbulb,
+  Code,
+  CheckCircle,
+  BookOpen,
+  Link,
+} from "lucide-react";
 import "./projects.css";
 
 const Projects = () => {
@@ -58,14 +69,14 @@ const Projects = () => {
       const response = await fetch(`${API_BASE_URL}/projects/${project._id}`);
 
       if (!response.ok) {
-        throw new Error('Failed to load project details');
+        throw new Error("Failed to load project details");
       }
 
       const fullProject = await response.json();
 
       // Update the project in the list with full details
-      setProjects(prev =>
-        prev.map(p => p._id === fullProject._id ? fullProject : p)
+      setProjects((prev) =>
+        prev.map((p) => (p._id === fullProject._id ? fullProject : p))
       );
 
       setSelectedProject(fullProject);
@@ -149,7 +160,8 @@ const Projects = () => {
                     alt={project.title}
                     loading="lazy" // LAZY LOAD IMAGES
                     onError={(e) => {
-                      e.target.src = "https://via.placeholder.com/400x300?text=Image+Not+Found";
+                      e.target.src =
+                        "https://via.placeholder.com/400x300?text=Image+Not+Found";
                     }}
                   />
 
@@ -168,7 +180,11 @@ const Projects = () => {
                       onClick={() => handleViewDetails(project)}
                       disabled={loadingFullProject}
                     >
-                      {loadingFullProject ? <Loader size={20} className="spinning" /> : <Eye size={20} />}
+                      {loadingFullProject ? (
+                        <Loader size={20} className="spinning" />
+                      ) : (
+                        <Eye size={20} />
+                      )}
                     </button>
 
                     <button
@@ -186,11 +202,12 @@ const Projects = () => {
                   <p className="featured-card-desc">{project.description}</p>
 
                   <div className="featured-tags">
-                    {project.tags && project.tags.map((tag, i) => (
-                      <span key={i} className="featured-tag">
-                        {tag}
-                      </span>
-                    ))}
+                    {project.tags &&
+                      project.tags.map((tag, i) => (
+                        <span key={i} className="featured-tag">
+                          {tag}
+                        </span>
+                      ))}
                   </div>
                   <button
                     onClick={() => handleViewDetails(project)}
@@ -209,7 +226,9 @@ const Projects = () => {
             <div className="featured-cta">
               <button
                 className="featured-btn"
-                onClick={() => setVisibleCount((prev) => prev + PROJECTS_PER_LOAD)}
+                onClick={() =>
+                  setVisibleCount((prev) => prev + PROJECTS_PER_LOAD)
+                }
               >
                 Load more projects
               </button>
@@ -229,10 +248,7 @@ const Projects = () => {
           className="project-modal-overlay"
           onClick={() => setSelectedProject(null)}
         >
-          <div
-            className="project-modal"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="project-modal" onClick={(e) => e.stopPropagation()}>
             <div className="project-modal-header">
               <h3>{selectedProject.title}</h3>
               <button onClick={() => setSelectedProject(null)}>✕</button>
@@ -246,43 +262,50 @@ const Projects = () => {
                   alt="project"
                   loading="lazy" // LAZY LOAD MODAL IMAGES
                   onError={(e) => {
-                    e.target.src = "https://via.placeholder.com/600x400?text=Image+Not+Found";
+                    e.target.src =
+                      "https://via.placeholder.com/600x400?text=Image+Not+Found";
                   }}
                 />
 
-                {selectedProject.images && selectedProject.images.length > 1 && (
-                  <>
-                    <button
-                      className="slider-btn left"
-                      onClick={() =>
-                        setCurrentImageIndex((prev) =>
-                          prev === 0
-                            ? selectedProject.images.length - 1
-                            : prev - 1
-                        )
-                      }
-                    >
-                      ‹
-                    </button>
+                {selectedProject.images &&
+                  selectedProject.images.length > 1 && (
+                    <>
+                      <button
+                        className="slider-btn left"
+                        onClick={() =>
+                          setCurrentImageIndex((prev) =>
+                            prev === 0
+                              ? selectedProject.images.length - 1
+                              : prev - 1
+                          )
+                        }
+                      >
+                        ‹
+                      </button>
 
-                    <button
-                      className="slider-btn right"
-                      onClick={() =>
-                        setCurrentImageIndex(
-                          (prev) =>
-                            (prev + 1) % selectedProject.images.length
-                        )
-                      }
-                    >
-                      ›
-                    </button>
-                  </>
-                )}
+                      <button
+                        className="slider-btn right"
+                        onClick={() =>
+                          setCurrentImageIndex(
+                            (prev) => (prev + 1) % selectedProject.images.length
+                          )
+                        }
+                      >
+                        ›
+                      </button>
+                    </>
+                  )}
               </div>
 
               {/* DESCRIPTION */}
               <div className="description">
-                <h4 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <h4
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                  }}
+                >
                   <BookOpen size={18} className="dis-logo" />
                   Description
                 </h4>
@@ -292,46 +315,75 @@ const Projects = () => {
               {/* DETAILS GRID */}
               <div className="project-details-grid">
                 <section>
-                  <h4 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <h4
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                    }}
+                  >
                     <CheckCircle size={18} className="cir-logo" /> Features
                   </h4>
                   <ul style={{ "--bullet-color": "rgb(1, 255, 1)" }}>
-                    {selectedProject.features && selectedProject.features.map((f, i) => (
-                      <li key={i}>{f}</li>
-                    ))}
+                    {selectedProject.features &&
+                      selectedProject.features.map((f, i) => (
+                        <li key={i}>{f}</li>
+                      ))}
                   </ul>
                 </section>
 
                 <section>
-                  <h4 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <h4
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                    }}
+                  >
                     <Code size={18} className="cod-logo" /> Tech Stack
                   </h4>
                   <ul style={{ "--bullet-color": "#6eacfc" }}>
-                    {selectedProject.techStack && selectedProject.techStack.map((t, i) => (
-                      <li key={i}>{t}</li>
-                    ))}
+                    {selectedProject.techStack &&
+                      selectedProject.techStack.map((t, i) => (
+                        <li key={i}>{t}</li>
+                      ))}
                   </ul>
                 </section>
 
                 <section>
-                  <h4 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <h4
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                    }}
+                  >
                     <Lightbulb size={18} className="bra-logo" /> Key Learnings
                   </h4>
                   <ul style={{ "--bullet-color": "#f7df03" }}>
-                    {selectedProject.keyLearnings && selectedProject.keyLearnings.map((k, i) => (
-                      <li key={i}>{k}</li>
-                    ))}
+                    {selectedProject.keyLearnings &&
+                      selectedProject.keyLearnings.map((k, i) => (
+                        <li key={i}>{k}</li>
+                      ))}
                   </ul>
                 </section>
 
                 <section>
-                  <h4 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                    <Rocket size={18} className="roc-logo" /> Future Improvements
+                  <h4
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                    }}
+                  >
+                    <Rocket size={18} className="roc-logo" /> Future
+                    Improvements
                   </h4>
                   <ul style={{ "--bullet-color": "#9b3ffe" }}>
-                    {selectedProject.futureImprovements && selectedProject.futureImprovements.map((f, i) => (
-                      <li key={i}>{f}</li>
-                    ))}
+                    {selectedProject.futureImprovements &&
+                      selectedProject.futureImprovements.map((f, i) => (
+                        <li key={i}>{f}</li>
+                      ))}
                   </ul>
                 </section>
 
@@ -340,13 +392,25 @@ const Projects = () => {
                     <Link size={18} className="plink" /> Project Links
                   </h4>
                   <div className="project-links1">
-                    <a href={selectedProject.live} target="_blank" rel="noreferrer">
+                    <a
+                      href={selectedProject.live}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <ExternalLink size={20} className="logo" /> Live Demo
                     </a>
-                    <a href={selectedProject.github} target="_blank" rel="noreferrer">
+                    <a
+                      href={selectedProject.github}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <Github size={20} className="logo" /> GitHub Repository
                     </a>
-                    <a href={selectedProject.documentation} target="_blank" rel="noreferrer">
+                    <a
+                      href={selectedProject.documentation}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <BookOpen size={20} className="logo" /> Documentation
                     </a>
                   </div>

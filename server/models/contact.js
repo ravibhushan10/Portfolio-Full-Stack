@@ -31,7 +31,7 @@ const ContactSchema = new mongoose.Schema({
         minlength: [2, 'Message must be at least 2 characters']
     }
 },
-    // {timestamps: true}
+    { timestamps: true }
 );
 
 module.exports = mongoose.model('Contact', ContactSchema);

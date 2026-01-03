@@ -2,17 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Project = require('../models/project');
 
-// GET all projects (OPTIMIZED - only essential fields for listing)
 router.get('/', async (req, res) => {
   try {
-    // Set cache headers (5 minutes)
     res.set('Cache-Control', 'public, max-age=300');
-
     const projects = await Project
       .find()
-      .select('title description img tags techStack github live order') // Only fields needed for cards
+      .select('title description img tags techStack github live order')
       .sort({ order: 1 })
-      .lean(); // Convert to plain JS objects (much faster)
+      .lean();
 
     res.json(projects);
   } catch (error) {
@@ -21,15 +18,13 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET single project (full details)
 router.get('/:id', async (req, res) => {
   try {
-    // Cache individual projects for longer (10 minutes)
     res.set('Cache-Control', 'public, max-age=600');
 
     const project = await Project
       .findById(req.params.id)
-      .lean(); // Faster plain object
+      .lean();
 
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
@@ -45,7 +40,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// CREATE project
 router.post('/', async (req, res) => {
   try {
     const project = new Project(req.body);
@@ -57,7 +51,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// UPDATE project
 router.put('/:id', async (req, res) => {
   try {
     const project = await Project.findByIdAndUpdate(
@@ -80,7 +73,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE project
 router.delete('/:id', async (req, res) => {
   try {
     const project = await Project.findByIdAndDelete(req.params.id);

@@ -80,7 +80,7 @@
 }
 
 .hero__description {
- color: #9ca3af;
+  color: #9ca3af;
   font-size: 1.125rem;
   line-height: 1.7;
   margin-bottom: 2rem;
@@ -149,7 +149,7 @@
 }
 
 .hero__social-label {
-   color: #9ca3af;
+  color: #9ca3af;
   font-size: 1.125rem;
   font-weight: 400;
   letter-spacing: 0.5px;
@@ -193,6 +193,7 @@
   color: #FFA116;
   border-color: #FFA116;
 }
+
 .hero__social-link.whatsapp {
   color: #01e32f;
   border-color: #01e32f;
@@ -203,7 +204,7 @@
 }
 
 .hero__social-link.github_profile:hover {
- background: #ffffff;
+  background: #ffffff;
   color: #000000;
 }
 
@@ -221,6 +222,7 @@
   background: #FFA116;
   color: #000000;
 }
+
 .hero__social-link.whatsapp:hover {
   background: #01e32f;
   color: #ffffff;
@@ -283,7 +285,6 @@
 
 .hero__profile-image-circle:hover {
   transform: scale(1.02)
-
 }
 
 
@@ -330,6 +331,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -337,9 +339,12 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.6;
   }
@@ -349,121 +354,137 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
 }
 
-/* Desktop Large */
 @media (min-width: 1440px) {
   .hero__profile-image-circle {
     max-width: 450px;
   }
 }
 
-/* Desktop Medium */
 @media (max-width: 1439px) and (min-width: 1024px) {
   .hero__container {
     gap: 3rem;
     max-width: 1200px;
   }
+
   .hero__title {
     font-size: 2.5rem;
   }
+
   .hero__profile-image-circle {
     max-width: 360px;
   }
 }
 
-/* Tablet */
 @media (max-width: 1023px) {
   .hero__container {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 3rem;
   }
+
   .hero__visual {
     justify-content: center;
     width: 100%;
     padding: 0;
     order: -1;
   }
+
   .hero__description {
     margin-left: auto;
     margin-right: auto;
   }
+
   .hero__profile-image-circle {
     max-width: 350px;
   }
 }
 
-/* Mobile Large */
 @media (max-width: 767px) {
   .hero {
     padding: 80px 1.5rem 2rem;
   }
+
   .hero__title {
     font-size: 2rem;
   }
+
   .hero__intro {
     font-size: 1.25rem;
   }
+
   .hero__description {
     font-size: 1.05rem;
     max-width: 90%;
     margin: 0 auto 2rem;
   }
+
   .hero__profile-image-circle {
     max-width: 280px;
   }
+
   .hero__buttons {
     justify-content: center;
     flex-direction: column;
     gap: 0.75rem;
   }
+
   .hero__btn {
     width: 100%;
     max-width: 280px;
     justify-content: center;
     padding: 0.875rem 1.5rem;
   }
+
   .hero__social {
     align-items: center;
   }
+
   .hero__social-icons {
     justify-content: center;
     gap: 12px;
   }
 }
 
-/* Mobile Medium */
 @media (max-width: 424px) {
   .hero {
     padding: 60px 0.75rem 1rem;
   }
+
   .hero__badge {
     font-size: 0.75rem;
     padding: 0.4rem 0.8rem;
   }
+
   .hero__title {
     font-size: 1.6rem;
   }
+
   .hero__intro {
     font-size: 1.1rem;
   }
+
   .hero__description {
     font-size: 0.95rem;
     max-width: 100%;
     margin: 0 auto 1.25rem;
   }
+
   .hero__profile-image-circle {
     max-width: 220px;
   }
+
   .hero__buttons {
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
   }
+
   .hero__btn {
     width: 100%;
     max-width: 260px;
@@ -471,13 +492,16 @@
     padding: 0.75rem 1.25rem;
     font-size: 0.95rem;
   }
+
   .hero__social {
     align-items: center;
   }
+
   .hero__social-icons {
     justify-content: center;
     gap: 10px;
   }
+
   .hero__social-link {
     width: 40px;
     height: 40px;
@@ -485,21 +509,24 @@
   }
 }
 
-/* Mobile Small */
 @media (max-width: 350px) {
   .hero {
     padding: 50px 0.75rem 1rem;
   }
+
   .hero__title {
     font-size: 1.4rem;
   }
+
   .hero__profile-image-circle {
     max-width: 180px;
   }
+
   .hero__btn {
     padding: 0.65rem 1rem;
     font-size: 0.9rem;
   }
+
   .hero__social-link {
     width: 36px;
     height: 36px;
@@ -511,9 +538,11 @@
   .hero__btn:hover {
     transform: none;
   }
+
   .hero__profile-image-circle:hover {
     transform: none;
   }
+
   .hero__image-inner-circle:hover img {
     transform: none;
   }
@@ -524,12 +553,15 @@
     flex-direction: column;
     align-items: center;
   }
+
   .hero__btn {
     width: 100%;
     max-width: 320px;
   }
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
