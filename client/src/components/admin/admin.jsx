@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Trash2, Plus, LogOut, Eye, EyeOff, Edit2, LayoutDashboard } from "lucide-react";
+import { Trash2, Plus, LogOut, Eye, EyeOff, Edit2, LayoutDashboard, Loader } from "lucide-react";
 import "./admin.css";
 
 const AdminDashboard = () => {
@@ -16,6 +16,7 @@ const AdminDashboard = () => {
   const [message, setMessage] = useState({ type: "", text: "" });
   const [editingProject, setEditingProject] = useState(null);
   const [error, setError] = useState("");
+  const [loadingFullProject, setLoadingFullProject] = useState(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -31,7 +32,7 @@ const AdminDashboard = () => {
     github: "",
     documentation: "",
     live: "",
-    order: 999 // Added order field
+    order: 999
   });
 
   // ==================== HELPER FUNCTION ====================
@@ -62,7 +63,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // ==================== FETCH PROJECTS ====================
+  // ==================== FETCH PROJECTS (LIST VIEW - OPTIMIZED) ====================
   const fetchProjects = async () => {
     try {
       setLoading(true);
@@ -74,6 +75,22 @@ const AdminDashboard = () => {
       showMessage("error", `❌ Error: ${error.message}`);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // ==================== FETCH FULL PROJECT FOR EDITING ====================
+  const fetchFullProject = async (projectId) => {
+    try {
+      setLoadingFullProject(true);
+      const response = await fetch(`${API_BASE_URL}/projects/${projectId}`);
+      if (!response.ok) throw new Error("Failed to fetch project details");
+      const fullProject = await response.json();
+      return fullProject;
+    } catch (error) {
+      showMessage("error", `❌ Error: ${error.message}`);
+      return null;
+    } finally {
+      setLoadingFullProject(false);
     }
   };
 
@@ -197,26 +214,52 @@ const AdminDashboard = () => {
     }
   };
 
-  // ==================== EDIT PROJECT ====================
-  const handleEditProject = (project) => {
-    setEditingProject(project);
-    setFormData({
-      title: project.title,
-      description: project.description,
-      fullDescription: project.fullDescription,
-      img: project.img,
-      images: project.images || [""],
-      tags: project.tags || [""],
-      features: project.features || [""],
-      techStack: project.techStack || [""],
-      keyLearnings: project.keyLearnings || [""],
-      futureImprovements: project.futureImprovements || [""],
-      github: project.github,
-      documentation: project.documentation,
-      live: project.live,
-      order: project.order || 999
-    });
-    setActiveTab("edit");
+  // ==================== EDIT PROJECT (OPTIMIZED - FETCH FULL DATA) ====================
+  const handleEditProject = async (project) => {
+    // If project already has full data, use it
+    if (project.fullDescription && project.features && project.features.length > 0) {
+      setEditingProject(project);
+      setFormData({
+        title: project.title,
+        description: project.description,
+        fullDescription: project.fullDescription,
+        img: project.img,
+        images: project.images || [""],
+        tags: project.tags || [""],
+        features: project.features || [""],
+        techStack: project.techStack || [""],
+        keyLearnings: project.keyLearnings || [""],
+        futureImprovements: project.futureImprovements || [""],
+        github: project.github,
+        documentation: project.documentation,
+        live: project.live,
+        order: project.order || 999
+      });
+      setActiveTab("edit");
+    } else {
+      // Fetch full project data
+      const fullProject = await fetchFullProject(project._id);
+      if (fullProject) {
+        setEditingProject(fullProject);
+        setFormData({
+          title: fullProject.title,
+          description: fullProject.description,
+          fullDescription: fullProject.fullDescription,
+          img: fullProject.img,
+          images: fullProject.images || [""],
+          tags: fullProject.tags || [""],
+          features: fullProject.features || [""],
+          techStack: fullProject.techStack || [""],
+          keyLearnings: fullProject.keyLearnings || [""],
+          futureImprovements: fullProject.futureImprovements || [""],
+          github: fullProject.github,
+          documentation: fullProject.documentation,
+          live: fullProject.live,
+          order: fullProject.order || 999
+        });
+        setActiveTab("edit");
+      }
+    }
   };
 
   const resetForm = () => {
@@ -303,6 +346,13 @@ const AdminDashboard = () => {
         </div>
       )}
 
+      {/* Loading Full Project Indicator */}
+      {loadingFullProject && (
+        <div className="admin-message admin-message-info">
+          <Loader size={18} className="spinning" /> Loading project details...
+        </div>
+      )}
+
       {/* Tabs */}
       <div className="admin-tabs">
         <button
@@ -352,12 +402,15 @@ const AdminDashboard = () => {
                       <button
                         onClick={() => handleEditProject(project)}
                         className="admin-edit-btn"
+                        disabled={loadingFullProject}
                       >
-                        <Edit2 size={18} /> Edit
+                        {loadingFullProject ? <Loader size={18} className="spinning" /> : <Edit2 size={18} />}
+                        {loadingFullProject ? " Loading..." : " Edit"}
                       </button>
                       <button
                         onClick={() => handleDeleteProject(project._id, project.title)}
                         className="admin-delete-btn"
+                        disabled={loadingFullProject}
                       >
                         <Trash2 size={18} /> Delete
                       </button>
@@ -669,7 +722,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              {/* ORDER SECTION - NEW */}
+              {/* ORDER SECTION */}
               <div className="admin-section">
                 <h3 className="admin-section-title">Display Order</h3>
 

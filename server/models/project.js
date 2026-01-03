@@ -66,5 +66,6 @@ const projectSchema = new mongoose.Schema(
   },
   // { timestamps: true }
 );
+projectSchema.index({ order: 1 });
 
 module.exports = mongoose.model('Project', projectSchema);

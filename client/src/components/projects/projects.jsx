@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Github, ExternalLink, Eye, Loader,Rocket,Lightbulb,Code,CheckCircle,BookOpen, Link } from "lucide-react";
+import { Github, ExternalLink, Eye, Loader, Rocket, Lightbulb, Code, CheckCircle, BookOpen, Link } from "lucide-react";
 import "./projects.css";
 
 const Projects = () => {
@@ -13,8 +13,9 @@ const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [loadingFullProject, setLoadingFullProject] = useState(false);
 
-  // ==================== FETCH PROJECTS ====================
+  // ==================== FETCH PROJECTS LIST ====================
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -31,6 +32,7 @@ const Projects = () => {
         setProjects(data);
       } catch (err) {
         console.error("Error fetching projects:", err);
+        console.error("API URL:", `${API_BASE_URL}/projects`);
         setError(err.message);
         setProjects([]);
       } finally {
@@ -40,6 +42,41 @@ const Projects = () => {
 
     fetchProjects();
   }, []);
+
+  // ==================== FETCH FULL PROJECT DETAILS ====================
+  const handleViewDetails = async (project) => {
+    // If project already has full details, just show it
+    if (project.fullDescription && project.images) {
+      setSelectedProject(project);
+      setCurrentImageIndex(0);
+      return;
+    }
+
+    // Otherwise, fetch full details
+    try {
+      setLoadingFullProject(true);
+      const response = await fetch(`${API_BASE_URL}/projects/${project._id}`);
+
+      if (!response.ok) {
+        throw new Error('Failed to load project details');
+      }
+
+      const fullProject = await response.json();
+
+      // Update the project in the list with full details
+      setProjects(prev =>
+        prev.map(p => p._id === fullProject._id ? fullProject : p)
+      );
+
+      setSelectedProject(fullProject);
+      setCurrentImageIndex(0);
+    } catch (err) {
+      console.error("Error fetching project details:", err);
+      alert("Failed to load project details. Please try again.");
+    } finally {
+      setLoadingFullProject(false);
+    }
+  };
 
   // ==================== RENDER LOADING ====================
   if (loading) {
@@ -54,7 +91,7 @@ const Projects = () => {
           </div>
           <div className="loading-container">
             <Loader size={50} className="loading-spinner" />
-            <p className="loading-text">Loading projects from backend...</p>
+            <p className="loading-text">Loading projects...</p>
           </div>
         </div>
       </section>
@@ -62,41 +99,37 @@ const Projects = () => {
   }
 
   // ==================== RENDER ERROR ====================
-if (error) {
-  return (
-    <section className="featured-section" id="projects">
-      <div className="featured-container">
-        <div className="featured-header">
-          <h2 className="featured-title">My Projects</h2>
-          <p className="featured-subtitle">
-            Explore my latest work and creative solutions
-          </p>
-        </div>
-        <div className="error-container">
-          <div className="error-box">
-            <div className="error-header">
-              <p className="error-text">Error: {error}</p>
-              <button
-                className="error-close-btn"
-                onClick={() => setError(null)}
-              >
-                ✕
-              </button>
+  if (error) {
+    return (
+      <section className="featured-section" id="projects">
+        <div className="featured-container">
+          <div className="featured-header">
+            <h2 className="featured-title">My Projects</h2>
+            <p className="featured-subtitle">
+              Explore my latest work and creative solutions
+            </p>
+          </div>
+          <div className="error-container">
+            <div className="error-box">
+              <div className="error-header">
+                <p className="error-text">Error: {error}</p>
+                <button
+                  className="error-close-btn"
+                  onClick={() => setError(null)}
+                >
+                  ✕
+                </button>
+              </div>
             </div>
-
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
-
+      </section>
+    );
+  }
 
   // ==================== RENDER PROJECTS ====================
   return (
     <>
-
-
       {/* PROJECT GRID */}
       <section className="featured-section" id="projects">
         <div className="featured-container">
@@ -114,6 +147,7 @@ if (error) {
                   <img
                     src={project.img}
                     alt={project.title}
+                    loading="lazy" // LAZY LOAD IMAGES
                     onError={(e) => {
                       e.target.src = "https://via.placeholder.com/400x300?text=Image+Not+Found";
                     }}
@@ -131,12 +165,10 @@ if (error) {
                     <button
                       className="featured-icon-btn"
                       title="View Details"
-                      onClick={() => {
-                        setSelectedProject(project);
-                        setCurrentImageIndex(0);
-                      }}
+                      onClick={() => handleViewDetails(project)}
+                      disabled={loadingFullProject}
                     >
-                      <Eye size={20} />
+                      {loadingFullProject ? <Loader size={20} className="spinning" /> : <Eye size={20} />}
                     </button>
 
                     <button
@@ -160,10 +192,13 @@ if (error) {
                       </span>
                     ))}
                   </div>
-                  <button onClick={() => {
-                        setSelectedProject(project);
-                        setCurrentImageIndex(0);
-                      }} class="featured-view-btn">View Details</button>
+                  <button
+                    onClick={() => handleViewDetails(project)}
+                    className="featured-view-btn"
+                    disabled={loadingFullProject}
+                  >
+                    {loadingFullProject ? "Loading..." : "View Details"}
+                  </button>
                 </div>
               </div>
             ))}
@@ -209,6 +244,7 @@ if (error) {
                 <img
                   src={selectedProject.images?.[currentImageIndex]}
                   alt="project"
+                  loading="lazy" // LAZY LOAD MODAL IMAGES
                   onError={(e) => {
                     e.target.src = "https://via.placeholder.com/600x400?text=Image+Not+Found";
                   }}
@@ -246,27 +282,19 @@ if (error) {
 
               {/* DESCRIPTION */}
               <div className="description">
-              <h4
-                style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
-              >
-                <BookOpen size={18} className="dis-logo" />
-                Description
-              </h4>
+                <h4 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <BookOpen size={18} className="dis-logo" />
+                  Description
+                </h4>
                 <p>{selectedProject.fullDescription}</p>
               </div>
 
               {/* DETAILS GRID */}
               <div className="project-details-grid">
                 <section>
-                 <h4
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  <CheckCircle size={18} className="cir-logo" /> Features
-                </h4>
+                  <h4 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <CheckCircle size={18} className="cir-logo" /> Features
+                  </h4>
                   <ul style={{ "--bullet-color": "rgb(1, 255, 1)" }}>
                     {selectedProject.features && selectedProject.features.map((f, i) => (
                       <li key={i}>{f}</li>
@@ -275,15 +303,9 @@ if (error) {
                 </section>
 
                 <section>
-                  <h4
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  <Code size={18} className="cod-logo" /> Tech Stack
-                </h4>
+                  <h4 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <Code size={18} className="cod-logo" /> Tech Stack
+                  </h4>
                   <ul style={{ "--bullet-color": "#6eacfc" }}>
                     {selectedProject.techStack && selectedProject.techStack.map((t, i) => (
                       <li key={i}>{t}</li>
@@ -292,15 +314,9 @@ if (error) {
                 </section>
 
                 <section>
-                 <h4
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  <Lightbulb size={18} className="bra-logo" /> Key Learnings
-                </h4>
+                  <h4 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <Lightbulb size={18} className="bra-logo" /> Key Learnings
+                  </h4>
                   <ul style={{ "--bullet-color": "#f7df03" }}>
                     {selectedProject.keyLearnings && selectedProject.keyLearnings.map((k, i) => (
                       <li key={i}>{k}</li>
@@ -309,15 +325,9 @@ if (error) {
                 </section>
 
                 <section>
-                 <h4
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  <Rocket size={18} className="roc-logo" /> Future Improvements
-                </h4>
+                  <h4 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <Rocket size={18} className="roc-logo" /> Future Improvements
+                  </h4>
                   <ul style={{ "--bullet-color": "#9b3ffe" }}>
                     {selectedProject.futureImprovements && selectedProject.futureImprovements.map((f, i) => (
                       <li key={i}>{f}</li>
@@ -326,31 +336,18 @@ if (error) {
                 </section>
 
                 <section className="project-links">
-                  <h4 >
-                 <Link size={18} className="plink" /> Project Links</h4>
+                  <h4>
+                    <Link size={18} className="plink" /> Project Links
+                  </h4>
                   <div className="project-links1">
-                    <a
-                      href={selectedProject.live}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                     <ExternalLink size={20} className="logo" /> Live Demo
+                    <a href={selectedProject.live} target="_blank" rel="noreferrer">
+                      <ExternalLink size={20} className="logo" /> Live Demo
                     </a>
-                    <a
-                      href={selectedProject.github}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                       <Github size={20} className="logo" />
-                    GitHub Repository
+                    <a href={selectedProject.github} target="_blank" rel="noreferrer">
+                      <Github size={20} className="logo" /> GitHub Repository
                     </a>
-                    <a
-                      href={selectedProject.documentation}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <BookOpen size={20} className="logo" />
-                    Documentation
+                    <a href={selectedProject.documentation} target="_blank" rel="noreferrer">
+                      <BookOpen size={20} className="logo" /> Documentation
                     </a>
                   </div>
                 </section>
