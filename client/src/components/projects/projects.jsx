@@ -330,6 +330,13 @@ if (error) {
                  <Link size={18} className="plink" /> Project Links</h4>
                   <div className="project-links1">
                     <a
+                      href={selectedProject.live}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                     <ExternalLink size={20} className="logo" /> Live Demo
+                    </a>
+                    <a
                       href={selectedProject.github}
                       target="_blank"
                       rel="noreferrer"
@@ -344,13 +351,6 @@ if (error) {
                     >
                       <BookOpen size={20} className="logo" />
                     Documentation
-                    </a>
-                    <a
-                      href={selectedProject.live}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                     <ExternalLink size={20} className="logo" /> Live Demo
                     </a>
                   </div>
                 </section>

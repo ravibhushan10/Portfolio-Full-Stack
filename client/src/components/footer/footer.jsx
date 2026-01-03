@@ -22,6 +22,14 @@ const Footer = () => {
                 <div className="footer__social">
                   <div className="social__icons">
                     <a
+                      href="https://x.com/Ravibhushan_12"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social__link twitter"
+                    >
+                      <SiX />
+                    </a>
+                    <a
                       href="https://www.instagram.com/ravi_maurya.2/?hl=en"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -36,14 +44,6 @@ const Footer = () => {
                       className="social__link linkedin"
                     >
                       <FaLinkedin />
-                    </a>
-                    <a
-                      href="https://x.com/Ravibhushan_12"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social__link twitter"
-                    >
-                      <SiX />
                     </a>
                   </div>
                   <p className="social__text">
